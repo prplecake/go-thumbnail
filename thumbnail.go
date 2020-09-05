@@ -21,13 +21,21 @@ type Image struct {
 	Size        int
 }
 
+// A Configuration sets all the configurable options for
+// thumbnail generation.
+type Configuration struct {
+	Path              string
+	ContentType       string
+	DestinationPrefix string
+}
+
 // Create generates ta thumbnail.
-func Create(path string, fb []byte, contentType string) error {
-	i, err := process(path, fb, contentType)
+func Create(fb []byte, cfg Configuration) error {
+	i, err := process(cfg.Path, fb, cfg.ContentType)
 	if err != nil {
 		return err
 	}
-	thumbPath := "data/thumbnails/thumb_" + filepath.Base(path)
+	thumbPath := cfg.DestinationPrefix + filepath.Base(cfg.Path)
 
 	dst := createRect(i)
 	var buffer bytes.Buffer
