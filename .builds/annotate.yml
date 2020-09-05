@@ -1,0 +1,22 @@
+image: debian/stable
+packages:
+  - golang
+  - curl
+secrets:
+  - a6fb7811-e817-4766-ab9f-a7e6751902e2
+sources:
+  - https://git.sr.ht/~mjorgensen/go-thumbnail
+  - https://git.sr.ht/~sircmpwn/annotatego
+triggers:
+  - action: email
+    condition: always
+    to: notify@jrgnsn.net
+tasks:
+  - annotatego: |
+      cd annotatego
+      go build
+      sudo cp annotatego /usr/bin/
+  - annotate: |
+      cd go-thumbnail
+      annotatego -v git.sr.ht/~mjorgensen/go-thumbnail... >annotations.json
+      ~/upload-annotations annotations.json mjorgensen go-thumbnail
