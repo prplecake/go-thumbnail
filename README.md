@@ -12,7 +12,33 @@ $ go get git.sr.ht/~mjorgensen/go-thumbnail
 
 ## Example
 
-TODO: write this section
+```go
+package main
+
+import (
+	"fmt"
+	"io/ioutil"
+
+	"git.sr.ht/~mjorgensen/go-thumbnail"
+)
+
+func main() {
+	thumbCfg := thumbnail.Configuration{
+		Path: "./image.jpeg",
+		ContentType: "image/jpeg",
+		DestinationPrefix: "thumb_",
+	}
+	testImage, err := ioutil.ReadFile(thumbCfg.Path)
+	if err != nil {
+		panic(err)
+	}
+
+	err = Create(testImage, thumbCfg)
+	if err != nil {
+		panic(err)
+	}
+}
+```
 
 ## Resources
 
