@@ -16,8 +16,7 @@ See `thumbnail_test.go` for an example implementation at this time.
 
 ## Resources
 
-Comprehensive documentation still needs to be written but will
-eventually [be found here][man].
+GoDocs can be found at [pkg.go.dev][godocs].
 
 Discussion and patches are welcome and should be directed to the
 project mailing list: [~mjorgensen/go-thumbnail@lists.sr.ht][lists].
@@ -25,6 +24,7 @@ project mailing list: [~mjorgensen/go-thumbnail@lists.sr.ht][lists].
 Bugs, issues, planning, and tasks can all be found at the tracker:
 [~mjorgensen/go-thumbnail][todo].
 
+[godocs]:https://pkg.go.dev/git.sr.ht/~mjorgensen/go-thumbnail
 [man]:https://man.sr.ht/~mjorgensen/go-thumbnail
 [lists]:https://lists.sr.ht/~mjorgensen/go-thumbnail
 [todo]:https://todo.sr.ht/~mjorgensen/go-thumbnail
