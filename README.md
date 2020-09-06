@@ -1,3 +1,7 @@
+[![builds.sr.ht status](https://builds.sr.ht/~mjorgensen/go-thumbnail.svg)](https://builds.sr.ht/~mjorgensen/go-thumbnail?)
+[![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white)](https://pkg.go.dev/git.sr.ht/~mjorgensen/go-thumbnail)
+
+
 # Thumbnail Generation Package for Go
 
 This package provides method to create thumbnails from provided images.
