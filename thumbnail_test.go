@@ -7,7 +7,6 @@ import (
 	"os"
 	"path/filepath"
 	"testing"
-	"time"
 )
 
 var (
@@ -79,7 +78,6 @@ func setupTestCase(t *testing.T) func(t *testing.T, path string) {
 	t.Log("Setting up test case.")
 	return func(t *testing.T, path string) {
 		t.Log("Tearing down test case.")
-		time.Sleep(5 * time.Second)
 		err := os.Remove(path)
 		if err != nil {
 			t.Errorf("Error tearing down test case: %q", err)

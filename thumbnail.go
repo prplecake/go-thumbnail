@@ -46,7 +46,7 @@ func NewGenerator() *Generator {
 
 // NewImage returns a new Image.
 func (gen *Generator) NewImage(path string) (*Image, error) {
-	imageBytes, err := ioutil.ReadFile(testJpegImagePath)
+	imageBytes, err := ioutil.ReadFile(path)
 	if err != nil {
 		return nil, err
 	}
