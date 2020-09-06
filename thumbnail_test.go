@@ -1,10 +1,13 @@
 package thumbnail
 
 import (
+	"bytes"
+	"image"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
+	"time"
 )
 
 var (
@@ -13,56 +16,70 @@ var (
 	testPngImagePath  = testDataPath + "test_image.png"
 )
 
-var thumbCfg = Configuration{
-	DestinationPrefix: testDataPath + "thumb_",
+var thumbTests = []struct {
+	mimeType string
+}{
+	{"image/jpeg"},
+	{"image/png"},
 }
 
-// TestJpegThumbnail tests JPEG thumbnail generation.
-func TestJpegThumbnail(t *testing.T) {
-	thumbCfg.Path = testJpegImagePath
-	thumbCfg.ContentType = "image/jpeg"
-	teardownTestCase := setupTestCase(t)
-	dest := thumbCfg.DestinationPrefix + filepath.Base(thumbCfg.Path)
-	defer teardownTestCase(t, dest)
+// TestThumbTests tests thumbTests
+func TestThumbTests(t *testing.T) {
+	var testImagePath string
+	for _, tt := range thumbTests {
+		t.Run(tt.mimeType, func(t *testing.T) {
+			switch mimeType := tt.mimeType; mimeType {
+			case "image/jpeg":
+				testImagePath = testJpegImagePath
+			case "image/png":
+				testImagePath = testPngImagePath
+			}
+			gen := NewGenerator()
+			gen.Scaler = "CatmullRom"
 
-	testImage, err := ioutil.ReadFile(thumbCfg.Path)
-	if err != nil {
-		t.Error(err)
+			i, err := gen.NewImage(testImagePath)
+			if err != nil {
+				t.Error(err)
+			}
+
+			teardownTestCase := setupTestCase(t)
+			dest := testDataPath + gen.DestinationPrefix + filepath.Base(i.Path)
+			defer teardownTestCase(t, dest)
+
+			thumbBytes, err := gen.Create(i)
+			if err != nil {
+				t.Error(err)
+			}
+
+			err = ioutil.WriteFile(dest, thumbBytes, 0644)
+			if err != nil {
+				t.Error(err)
+			}
+
+			checkFileExists(t, dest)
+			var (
+				wantWidth  = gen.Width
+				wantHeight = gen.Height
+			)
+			gotWidth, gotHeight, err := checkImageDimensions(t, dest)
+			if err != nil {
+				t.Error(err)
+			}
+			if wantWidth != gotWidth {
+				t.Errorf("checkImageDimensions() got %d, wants %d", gotWidth, wantWidth)
+			}
+			if wantHeight != gotHeight {
+				t.Errorf("checkImageDimensions() got %d, wants %d", gotHeight, wantHeight)
+			}
+		})
 	}
-
-	err = Create(testImage, thumbCfg)
-	if err != nil {
-		t.Error(err)
-	}
-
-	checkFileExists(t, dest)
-}
-
-// TestPngThumbnail tests PNG thumbnail generation.
-func TestPngThumbnail(t *testing.T) {
-	thumbCfg.Path = testPngImagePath
-	thumbCfg.ContentType = "image/png"
-	teardownTestCase := setupTestCase(t)
-	dest := thumbCfg.DestinationPrefix + filepath.Base(thumbCfg.Path)
-	defer teardownTestCase(t, dest)
-
-	testImage, err := ioutil.ReadFile(thumbCfg.Path)
-	if err != nil {
-		t.Error(err)
-	}
-
-	err = Create(testImage, thumbCfg)
-	if err != nil {
-		t.Error(err)
-	}
-
-	checkFileExists(t, dest)
 }
 
 func setupTestCase(t *testing.T) func(t *testing.T, path string) {
 	t.Log("Setting up test case.")
 	return func(t *testing.T, path string) {
 		t.Log("Tearing down test case.")
+		time.Sleep(5 * time.Second)
 		err := os.Remove(path)
 		if err != nil {
 			t.Errorf("Error tearing down test case: %q", err)
@@ -82,4 +99,20 @@ func checkFileExists(t *testing.T, path string) {
 	}
 	t.Log("File exists.")
 	return
+}
+
+func checkImageDimensions(t *testing.T, path string) (int, int, error) {
+	imageBytes, err := ioutil.ReadFile(path)
+	if err != nil {
+		return 0, 0, err
+	}
+	img, _, err := image.Decode(bytes.NewReader(imageBytes))
+	if err != nil {
+		return 0, 0, err
+	}
+	var (
+		width  = img.Bounds().Max.X
+		height = img.Bounds().Max.Y
+	)
+	return width, height, nil
 }
