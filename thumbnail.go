@@ -2,6 +2,7 @@ package thumbnail
 
 import (
 	"bytes"
+	"errors"
 	"image"
 	"image/jpeg"
 	"image/png"
@@ -33,6 +34,12 @@ type Configuration struct {
 	ContentType       string
 	DestinationPrefix string
 }
+
+var (
+	// ErrInvalidMimeType is returned when a non-image content type is
+	// detected.
+	ErrInvalidMimeType = errors.New("invalid mimetype")
+)
 
 // NewGenerator creates a new thumbnail generator and its configuration.
 func NewGenerator() *Generator {
@@ -86,8 +93,11 @@ type Generator struct {
 	Scaler string
 }
 
-// Create generates ta thumbnail.
+// Create generates a thumbnail.
 func (gen *Generator) Create(i *Image) ([]byte, error) {
+	if i.ContentType == "application/octet-stream" {
+		return nil, ErrInvalidMimeType
+	}
 
 	dst := gen.createRect(i)
 	var buffer bytes.Buffer
