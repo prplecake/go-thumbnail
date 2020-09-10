@@ -24,6 +24,11 @@ var thumbTests = []struct {
 
 // TestThumbTests tests thumbTests
 func TestThumbTests(t *testing.T) {
+	config := Generator{
+		DestinationPath:   "",
+		DestinationPrefix: "thumb_",
+		Scaler:            "CatmullRom",
+	}
 	var testImagePath string
 	for _, tt := range thumbTests {
 		t.Run(tt.mimeType, func(t *testing.T) {
@@ -33,8 +38,7 @@ func TestThumbTests(t *testing.T) {
 			case "image/png":
 				testImagePath = testPngImagePath
 			}
-			gen := NewGenerator()
-			gen.Scaler = "CatmullRom"
+			gen := NewGenerator(config)
 
 			i, err := gen.NewImage(testImagePath)
 			if err != nil {

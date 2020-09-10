@@ -12,8 +12,12 @@ var mimetypeTests = []struct {
 
 // TestMimeType tests different mimetypes
 func TestMimeType(t *testing.T) {
-	gen := NewGenerator()
-	gen.Scaler = "CatmullRom"
+	config := Generator{
+		DestinationPath:   "",
+		DestinationPrefix: "thumb_",
+		Scaler:            "NearestNeighbor",
+	}
+	gen := NewGenerator(config)
 	for _, tt := range mimetypeTests {
 		t.Run(tt.mimetype, func(t *testing.T) {
 			t.Log(tt.mimetype)

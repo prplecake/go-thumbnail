@@ -56,12 +56,13 @@ var (
 )
 
 // NewGenerator creates a new thumbnail generator and its configuration.
-func NewGenerator() *Generator {
+func NewGenerator(c Generator) *Generator {
 	return &Generator{
 		Width:             300,
 		Height:            300,
-		DestinationPath:   "",
-		DestinationPrefix: "thumb_",
+		DestinationPath:   c.DestinationPath,
+		DestinationPrefix: c.DestinationPrefix,
+		Scaler:            c.Scaler,
 	}
 }
 
