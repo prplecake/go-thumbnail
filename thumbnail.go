@@ -53,6 +53,9 @@ var (
 	// ErrInvalidMimeType is returned when a non-image content type is
 	// detected.
 	ErrInvalidMimeType = errors.New("invalid mimetype")
+
+	// ErrInvalidScaler is returned when an unrecognized scaler is passed to the Generator.
+	ErrInvalidScaler = errors.New("invalid scaler")
 )
 
 // NewGenerator creates a new thumbnail generator and its configuration.
@@ -115,9 +118,11 @@ func (gen *Generator) Create(i *Image) ([]byte, error) {
 		return nil, ErrInvalidMimeType
 	}
 
-	dst := gen.createRect(i)
+	dst, err := gen.createRect(i)
+	if err != nil {
+		return nil, err
+	}
 	var buffer bytes.Buffer
-	var err error
 	switch i.ContentType {
 	case "image/jpeg":
 		err = jpeg.Encode(&buffer, dst, nil)
@@ -130,10 +135,10 @@ func (gen *Generator) Create(i *Image) ([]byte, error) {
 	return buffer.Bytes(), nil
 }
 
-func (gen *Generator) createRect(i *Image) *image.RGBA {
+func (gen *Generator) createRect(i *Image) (*image.RGBA, error) {
 	img, _, err := image.Decode(bytes.NewReader(i.Data))
 	if err != nil {
-		log.Print(err)
+		return nil, err
 	}
 	var (
 		x = gen.Width
@@ -153,10 +158,10 @@ func (gen *Generator) createRect(i *Image) *image.RGBA {
 		scaler = draw.CatmullRom
 	}
 	if scaler == nil {
-		log.Print("Error: No scaler selected.")
+		return nil, ErrInvalidScaler
 	}
 	scaler.Scale(dst, rect, img, img.Bounds(), draw.Over, nil)
-	return dst
+	return dst, nil
 
 }
 
