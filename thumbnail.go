@@ -93,6 +93,25 @@ func (gen *Generator) NewImageFromFile(path string) (*Image, error) {
 	}, nil
 }
 
+// NewImageFromByteArray reads in an image from a byte array and populates an Image object.
+// That new Image object is returned along with any errors that occur during the operation.
+func (gen *Generator) NewImageFromByteArray(imageBytes []byte) (*Image, error) {
+	contentType := detectContentType(imageBytes)
+	return &Image{
+		ContentType: contentType,
+		Data:        imageBytes,
+		Size:        len(imageBytes),
+		Current: Dimensions{
+			Width:  0,
+			Height: 0,
+		},
+		Future: Dimensions{
+			Width:  gen.Width,
+			Height: gen.Height,
+		},
+	}, nil
+}
+
 // Generator registers a geneator configuration to be used when creating
 // thumbnails.
 type Generator struct {

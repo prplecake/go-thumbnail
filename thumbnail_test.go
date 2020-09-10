@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"image"
 	"io/ioutil"
+	"net/http"
 	"os"
 	"path/filepath"
 	"testing"
@@ -75,6 +76,63 @@ func TestThumbTests(t *testing.T) {
 				t.Errorf("checkImageDimensions() got %d, wants %d", gotHeight, wantHeight)
 			}
 		})
+	}
+}
+
+func TestNewImageFromByteArray(t *testing.T) {
+	testImageURL := "https://minio.jrgnsn.net/jrgnsn-pleroma/a48a6c8e0ee3b77284d4b3c6bb3a099a45b2af3bb2375422624f687c172bd6c1.jpg"
+	if testImageURL == "" {
+		t.Fatal("No test image URL.")
+	}
+	resp, err := http.Get(testImageURL)
+	if err != nil {
+		t.Error(err)
+	}
+	defer resp.Body.Close()
+	data, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		t.Error(err)
+	}
+
+	config := Generator{
+		DestinationPath:   "",
+		DestinationPrefix: "thumb_",
+		Scaler:            "CatmullRom",
+	}
+	gen := NewGenerator(config)
+	i, err := gen.NewImageFromByteArray(data)
+	if err != nil {
+		t.Error(err)
+	}
+
+	teardownTestCase := setupTestCase(t)
+	dest := testDataPath + gen.DestinationPrefix + filepath.Base(testImageURL)
+	defer teardownTestCase(t, dest)
+
+	thumbBytes, err := gen.CreateThumbnail(i)
+	if err != nil {
+		t.Error(err)
+	}
+
+	err = ioutil.WriteFile(dest, thumbBytes, 0644)
+	if err != nil {
+		t.Error(err)
+	}
+
+	checkFileExists(t, dest)
+	var (
+		wantWidth  = gen.Width
+		wantHeight = gen.Height
+	)
+	gotWidth, gotHeight, err := checkImageDimensions(t, dest)
+	if err != nil {
+		t.Error(err)
+	}
+	if wantWidth != gotWidth {
+		t.Errorf("checkImageDimensions() got %d, wants %d", gotWidth, wantWidth)
+	}
+	if wantHeight != gotHeight {
+		t.Errorf("checkImageDimensions() got %d, wants %d", gotHeight, wantHeight)
 	}
 }
 
