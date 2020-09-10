@@ -23,8 +23,9 @@ type Image struct {
 	Future      dimensions
 }
 
-type dimensions struct {
 	Width, Height, X, Y int
+// Dimensions stores dimensional information for an Image.
+type Dimensions struct {
 }
 
 // A Configuration sets all the configurable options for
@@ -63,11 +64,11 @@ func (gen *Generator) NewImage(path string) (*Image, error) {
 		ContentType: contentType,
 		Data:        imageBytes,
 		Size:        len(imageBytes),
-		Current: dimensions{
+		Current: Dimensions{
 			Width:  0,
 			Height: 0,
 		},
-		Future: dimensions{
+		Future: Dimensions{
 			Width:  gen.Width,
 			Height: gen.Height,
 		},
