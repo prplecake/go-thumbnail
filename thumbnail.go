@@ -69,9 +69,9 @@ func NewGenerator(c Generator) *Generator {
 	}
 }
 
-// NewImage reads in an image file from the file system and populates an Image object.
+// NewImageFromFile reads in an image file from the file system and populates an Image object.
 // That new Image object is returned along with any errors that occur during the operation.
-func (gen *Generator) NewImage(path string) (*Image, error) {
+func (gen *Generator) NewImageFromFile(path string) (*Image, error) {
 	imageBytes, err := ioutil.ReadFile(path)
 	if err != nil {
 		return nil, err
@@ -112,8 +112,8 @@ type Generator struct {
 	Scaler string
 }
 
-// Create generates a thumbnail.
-func (gen *Generator) Create(i *Image) ([]byte, error) {
+// CreateThumbnail generates a thumbnail.
+func (gen *Generator) CreateThumbnail(i *Image) ([]byte, error) {
 	if i.ContentType == "application/octet-stream" {
 		return nil, ErrInvalidMimeType
 	}

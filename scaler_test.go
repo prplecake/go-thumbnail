@@ -27,7 +27,7 @@ func TestScalers(t *testing.T) {
 			t.Log(config)
 			gen := NewGenerator(config)
 
-			i, err := gen.NewImage(testJpegImagePath)
+			i, err := gen.NewImageFromFile(testJpegImagePath)
 			if err != nil {
 				t.Error(err)
 			}
@@ -36,7 +36,7 @@ func TestScalers(t *testing.T) {
 			dest := testDataPath + gen.DestinationPrefix + filepath.Base(i.Path)
 			defer teardownTestCase(t, dest)
 
-			thumbBytes, err := gen.Create(i)
+			thumbBytes, err := gen.CreateThumbnail(i)
 			if err != nil {
 				t.Error(err)
 			}
@@ -73,16 +73,14 @@ func TestInvalidScaler(t *testing.T) {
 	}
 
 	gen := NewGenerator(config)
-	// Can't use NewImage to create an image since we need to
-	// bypass detectContentType
 
-	i, err := gen.NewImage(testJpegImagePath)
+	i, err := gen.NewImageFromFile(testJpegImagePath)
 	if err != nil {
 		t.Error(err)
 	}
 
 	errWant := ErrInvalidScaler
-	_, err = gen.Create(i)
+	_, err = gen.CreateThumbnail(i)
 	if err != nil {
 		if err != errWant {
 			t.Errorf("Got unexpected error. Expected %s, got %s", errWant, err)

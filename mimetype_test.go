@@ -27,7 +27,7 @@ func TestMimeType(t *testing.T) {
 				ContentType: tt.mimetype,
 			}
 			errWant := ErrInvalidMimeType
-			_, err := gen.Create(image)
+			_, err := gen.CreateThumbnail(image)
 			if err != nil {
 				if err != errWant {
 					t.Errorf("Got unexpected error. Expected %s, got %s", errWant, err)

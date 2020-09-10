@@ -40,7 +40,7 @@ func TestThumbTests(t *testing.T) {
 			}
 			gen := NewGenerator(config)
 
-			i, err := gen.NewImage(testImagePath)
+			i, err := gen.NewImageFromFile(testImagePath)
 			if err != nil {
 				t.Error(err)
 			}
@@ -49,7 +49,7 @@ func TestThumbTests(t *testing.T) {
 			dest := testDataPath + gen.DestinationPrefix + filepath.Base(i.Path)
 			defer teardownTestCase(t, dest)
 
-			thumbBytes, err := gen.Create(i)
+			thumbBytes, err := gen.CreateThumbnail(i)
 			if err != nil {
 				t.Error(err)
 			}
@@ -130,12 +130,12 @@ func Example() {
 	dest := "path/to/thumb_image.jpg"
 	gen := NewGenerator(config)
 
-	i, err := gen.NewImage(imagePath)
+	i, err := gen.NewImageFromFile(imagePath)
 	if err != nil {
 		panic(err)
 	}
 
-	thumbBytes, err := gen.Create(i)
+	thumbBytes, err := gen.CreateThumbnail(i)
 	if err != nil {
 		panic(err)
 	}
