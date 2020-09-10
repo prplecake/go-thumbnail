@@ -8,7 +8,6 @@ import (
 	"image/jpeg"
 	"image/png"
 	"io/ioutil"
-	"log"
 	"net/http"
 
 	"golang.org/x/image/draw"
