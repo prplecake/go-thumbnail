@@ -50,21 +50,6 @@ type Dimensions struct {
 	Y int
 }
 
-// A Configuration sets all the configurable options for
-// thumbnail generation.
-type Configuration struct {
-	// Path is the path to place newly generated thumbnails.
-	Path string
-
-	// ContentType is the content type of the newly generated thumbnail.
-	// This is usually equivalent to the content type of the original image.
-	ContentType string
-
-	// DestinationPrefix is a string used to prefix the filename of the
-	// newly generated thumbnail.
-	DestinationPrefix string
-}
-
 var (
 	// ErrInvalidMimeType is returned when a non-image content type is
 	// detected.
