@@ -118,3 +118,30 @@ func checkImageDimensions(t *testing.T, path string) (int, int, error) {
 	)
 	return width, height, nil
 }
+
+func Example() {
+	var config = Generator{
+		DestinationPath:   "",
+		DestinationPrefix: "thumb_",
+		Scaler:            "CatmullRom",
+	}
+
+	imagePath := "path/to/image.jpg"
+	dest := "path/to/thumb_image.jpg"
+	gen := NewGenerator(config)
+
+	i, err := gen.NewImage(imagePath)
+	if err != nil {
+		panic(err)
+	}
+
+	thumbBytes, err := gen.Create(i)
+	if err != nil {
+		panic(err)
+	}
+
+	err = ioutil.WriteFile(dest, thumbBytes, 0644)
+	if err != nil {
+		panic(err)
+	}
+}
