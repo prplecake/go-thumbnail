@@ -1,3 +1,4 @@
+// Package thumbnail provides a method to create thumbnails from images.
 package thumbnail
 
 import (
@@ -13,26 +14,54 @@ import (
 	"golang.org/x/image/draw"
 )
 
-// An Image is an image and it's information.
+// An Image is an image and information about it.
 type Image struct {
-	Path        string
+	// Path is a path to an image.
+	Path string
+
+	// ContentType is the content type of the image.
 	ContentType string
-	Data        []byte
-	Size        int
-	Current     dimensions
-	Future      dimensions
+
+	// Data is the image data in a byte-array
+	Data []byte
+
+	// Size is the length of Data
+	Size int
+
+	// Current stores the existing image's dimentions
+	Current Dimensions
+
+	// Future store the new thumbnail dimensions.
+	Future Dimensions
 }
 
-	Width, Height, X, Y int
 // Dimensions stores dimensional information for an Image.
 type Dimensions struct {
+	// Width is the width of an image in pixels.
+	Width int
+
+	// Height is the height on an image in pixels.
+	Height int
+
+	// X is the right-most X-coordinate.
+	X int
+
+	// Y is the top-most Y-coordinate.
+	Y int
 }
 
 // A Configuration sets all the configurable options for
 // thumbnail generation.
 type Configuration struct {
-	Path              string
-	ContentType       string
+	// Path is the path to place newly generated thumbnails.
+	Path string
+
+	// ContentType is the content type of the newly generated thumbnail.
+	// This is usually equivalent to the content type of the original image.
+	ContentType string
+
+	// DestinationPrefix is a string used to prefix the filename of the
+	// newly generated thumbnail.
 	DestinationPrefix string
 }
 
@@ -52,7 +81,8 @@ func NewGenerator() *Generator {
 	}
 }
 
-// NewImage returns a new Image.
+// NewImage reads in an image file from the file system and populates an Image object.
+// That new Image object is returned along with any errors that occur during the operation.
 func (gen *Generator) NewImage(path string) (*Image, error) {
 	imageBytes, err := ioutil.ReadFile(path)
 	if err != nil {
