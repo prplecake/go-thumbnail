@@ -203,3 +203,42 @@ func Example() {
 		panic(err)
 	}
 }
+
+func ExampleNewImageFromByteArray() {
+	testImageURL := "https://example.com/image.jpg"
+	if testImageURL == "" {
+		panic("No test image URL.")
+	}
+	resp, err := http.Get(testImageURL)
+	if err != nil {
+		panic(err)
+	}
+	defer resp.Body.Close()
+	data, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		panic(err)
+	}
+
+	config := Generator{
+		DestinationPath:   "",
+		DestinationPrefix: "thumb_",
+		Scaler:            "CatmullRom",
+	}
+	gen := NewGenerator(config)
+	i, err := gen.NewImageFromByteArray(data)
+	if err != nil {
+		panic(err)
+	}
+
+	dest := testDataPath + gen.DestinationPrefix + filepath.Base(testImageURL)
+
+	thumbBytes, err := gen.CreateThumbnail(i)
+	if err != nil {
+		panic(err)
+	}
+
+	err = ioutil.WriteFile(dest, thumbBytes, 0644)
+	if err != nil {
+		panic(err)
+	}
+}
