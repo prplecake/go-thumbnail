@@ -112,8 +112,8 @@ func (gen *Generator) NewImageFromByteArray(imageBytes []byte) (*Image, error) {
 	}, nil
 }
 
-// Generator registers a geneator configuration to be used when creating
-// thumbnails.
+// Generator registers a generator configuration to be used when
+// creating thumbnails.
 type Generator struct {
 	// Width is the destination thumbnail width.
 	Width int
