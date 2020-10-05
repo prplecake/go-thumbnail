@@ -54,7 +54,8 @@ var (
 	// detected.
 	ErrInvalidMimeType = errors.New("invalid mimetype")
 
-	// ErrInvalidScaler is returned when an unrecognized scaler is passed to the Generator.
+	// ErrInvalidScaler is returned when an unrecognized scaler is
+	// passed to the Generator.
 	ErrInvalidScaler = errors.New("invalid scaler")
 )
 
@@ -70,8 +71,9 @@ func NewGenerator(c Generator) *Generator {
 	}
 }
 
-// NewImageFromFile reads in an image file from the file system and populates an Image object.
-// That new Image object is returned along with any errors that occur during the operation.
+// NewImageFromFile reads in an image file from the file system and
+// populates an Image object. That new Image object is returned along
+// with any errors that occur during the operation.
 func (gen *Generator) NewImageFromFile(path string) (*Image, error) {
 	imageBytes, err := ioutil.ReadFile(path)
 	if err != nil {
@@ -94,8 +96,9 @@ func (gen *Generator) NewImageFromFile(path string) (*Image, error) {
 	}, nil
 }
 
-// NewImageFromByteArray reads in an image from a byte array and populates an Image object.
-// That new Image object is returned along with any errors that occur during the operation.
+// NewImageFromByteArray reads in an image from a byte array and
+// populates an Image object. That new Image object is returned along
+// with any errors that occur during the operation.
 func (gen *Generator) NewImageFromByteArray(imageBytes []byte) (*Image, error) {
 	contentType := detectContentType(imageBytes)
 	return &Image{
@@ -125,7 +128,8 @@ type Generator struct {
 	// DestinationPath is the dentination thumbnail path.
 	DestinationPath string
 
-	// DestinationPrefix is the prefix for the destination thumbnail filename.
+	// DestinationPrefix is the prefix for the destination thumbnail
+	// filename.
 	DestinationPrefix string
 
 	// Scaler is the scaler to be used when generating thumbnails.
