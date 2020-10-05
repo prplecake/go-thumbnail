@@ -58,7 +58,8 @@ var (
 	ErrInvalidScaler = errors.New("invalid scaler")
 )
 
-// NewGenerator creates a new thumbnail generator and its configuration.
+// NewGenerator returns an instance of a thumbnail generator with a
+// given configuration.
 func NewGenerator(c Generator) *Generator {
 	return &Generator{
 		Width:             300,
