@@ -7,8 +7,8 @@ import (
 	"image"
 	"image/jpeg"
 	"image/png"
-	"io/ioutil"
 	"net/http"
+	"os"
 
 	"golang.org/x/image/draw"
 )
@@ -75,7 +75,7 @@ func NewGenerator(c Generator) *Generator {
 // populates an Image object. That new Image object is returned along
 // with any errors that occur during the operation.
 func (gen *Generator) NewImageFromFile(path string) (*Image, error) {
-	imageBytes, err := ioutil.ReadFile(path)
+	imageBytes, err := os.ReadFile(path)
 	if err != nil {
 		return nil, err
 	}
