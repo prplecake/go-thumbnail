@@ -1,4 +1,5 @@
 [![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white)](https://pkg.go.dev/github.com/prplecake/go-thumbnail)
+[![codecov](https://codecov.io/gh/prplecake/go-thumbnail/branch/master/graph/badge.svg)](https://codecov.io/gh/prplecake/go-thumbnail)
 
 
 # Thumbnail Generation Package for Go
