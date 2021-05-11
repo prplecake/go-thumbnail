@@ -1,5 +1,7 @@
 [![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white)](https://pkg.go.dev/github.com/prplecake/go-thumbnail)
 [![codecov](https://codecov.io/gh/prplecake/go-thumbnail/branch/master/graph/badge.svg)](https://codecov.io/gh/prplecake/go-thumbnail)
+[![Go](https://github.com/prplecake/go-thumbnail/actions/workflows/go.yml/badge.svg)](https://github.com/prplecake/go-thumbnail/actions/workflows/go.yml)
+[![CodeQL](https://github.com/prplecake/go-thumbnail/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/prplecake/go-thumbnail/actions/workflows/codeql-analysis.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=prplecake_go-thumbnail&metric=alert_status)](https://sonarcloud.io/dashboard?id=prplecake_go-thumbnail)
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=prplecake_go-thumbnail&metric=bugs)](https://sonarcloud.io/dashboard?id=prplecake_go-thumbnail)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=prplecake_go-thumbnail&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=prplecake_go-thumbnail)
