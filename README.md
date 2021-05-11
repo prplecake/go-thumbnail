@@ -4,7 +4,7 @@
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=prplecake_go-thumbnail&metric=bugs)](https://sonarcloud.io/dashboard?id=prplecake_go-thumbnail)
 [![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=prplecake_go-thumbnail&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=prplecake_go-thumbnail)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=prplecake_go-thumbnail&metric=code_smells)](https://sonarcloud.io/dashboard?id=prplecake_go-thumbnail)
-
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=prplecake_go-thumbnail&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=prplecake_go-thumbnail)
 
 
 # Thumbnail Generation Package for Go
