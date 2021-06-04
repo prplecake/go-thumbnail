@@ -15,7 +15,7 @@ tasks:
       fi
   - build: |
       cd go-thumbnail
-      go build
+      go build -v ./...
   - test: |
       cd go-thumbnail
       go test
