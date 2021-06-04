@@ -1,0 +1,21 @@
+image: debian/stable
+packages:
+  - golang
+sources:
+  - https://git.sr.ht/~mjorgensen/go-thumbnail
+triggers:
+  - action: email
+    condition: always
+    to: notify@jrgnsn.net
+tasks:
+  - is-master: |
+      cd go-thumbnail
+      if [ "$(git rev-parse master)" != "$(git rev-parse HEAD)" ]; then
+        complete-build;
+      fi
+  - build: |
+      cd go-thumbnail
+      go build
+  - test: |
+      cd go-thumbnail
+      go test
