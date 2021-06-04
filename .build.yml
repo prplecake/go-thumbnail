@@ -1,6 +1,6 @@
-image: debian/stable
+image: alpine/edge
 packages:
-  - golang
+  - go
 sources:
   - https://git.sr.ht/~mjorgensen/go-thumbnail
 triggers:
