@@ -1,4 +1,4 @@
-[![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white)](https://pkg.go.dev/github.com/prplecake/go-thumbnail)
+[![godocs.io](http://godocs.io/git.sr.ht/~mjorgensen/go-thumbnail?status.svg)](http://godocs.io/git.sr.ht/~mjorgensen/go-thumbnail)
 
 # Thumbnail Generation Package for Go
 
@@ -18,6 +18,6 @@ See `thumbnail_test.go` for an example implementation at this time.
 
 ## Resources
 
-GoDocs can be found at [pkg.go.dev][godocs].
+GoDocs can be found at [godocs.io][godocs].
 
-[godocs]:https://pkg.go.dev/github.com/prplecake/go-thumbnail
+[godocs]:https://godocs.io/git.sr.ht/~mjorgensen/go-thumbnail
