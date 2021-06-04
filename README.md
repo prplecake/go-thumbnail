@@ -9,7 +9,7 @@ This package provides method to create thumbnails from provided images.
 Use to `go` command:
 
 ```
-$ go get github.com/prplecake/go-thumbnail
+$ go get git.sr.ht/~mjorgensen/go-thumbnail
 ```
 
 ## Example
