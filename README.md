@@ -1,4 +1,5 @@
 [![godocs.io](http://godocs.io/git.sr.ht/~mjorgensen/go-thumbnail?status.svg)](http://godocs.io/git.sr.ht/~mjorgensen/go-thumbnail)
+[![builds.sr.ht status](https://builds.sr.ht/~mjorgensen/go-thumbnail.svg)](https://builds.sr.ht/~mjorgensen/go-thumbnail?)
 
 # Thumbnail Generation Package for Go
 
