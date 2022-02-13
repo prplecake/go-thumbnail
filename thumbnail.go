@@ -27,7 +27,7 @@ type Image struct {
 	// Size is the length of Data
 	Size int
 
-	// Current stores the existing image's dimentions
+	// Current stores the existing image's dimensions
 	Current Dimensions
 
 	// Future store the new thumbnail dimensions.
@@ -125,7 +125,7 @@ type Generator struct {
 	// Height is the destination thumbnail height.
 	Height int
 
-	// DestinationPath is the dentination thumbnail path.
+	// DestinationPath is the destination thumbnail path.
 	DestinationPath string
 
 	// DestinationPrefix is the prefix for the destination thumbnail
