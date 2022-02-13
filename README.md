@@ -9,8 +9,8 @@ This package provides method to create thumbnails from provided images.
 
 Use to `go` command:
 
-```
-$ go get git.sr.ht/~mjorgensen/go-thumbnail
+```shell
+go get github.com/prplecake/go-thumbnail
 ```
 
 ## Example
@@ -21,4 +21,4 @@ See `thumbnail_test.go` for an example implementation at this time.
 
 GoDocs can be found at [godocs.io][godocs].
 
-[godocs]:https://godocs.io/git.sr.ht/~mjorgensen/go-thumbnail
+[godocs]:https://godocs.io/github.com/prplecake/go-thumbnail
