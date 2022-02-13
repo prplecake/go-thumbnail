@@ -1,5 +1,5 @@
-[![godocs.io](http://godocs.io/git.sr.ht/~mjorgensen/go-thumbnail?status.svg)](http://godocs.io/git.sr.ht/~mjorgensen/go-thumbnail)
-[![builds.sr.ht status](https://builds.sr.ht/~mjorgensen/go-thumbnail.svg)](https://builds.sr.ht/~mjorgensen/go-thumbnail?)
+[![godocs.io](http://godocs.io/github.com/prplecake/go-thumbnail?status.svg)](http://godocs.io/github.com/prplecake/go-thumbnail)
+[![Go](https://github.com/prplecake/go-thumbnail/actions/workflows/go.yml/badge.svg)](https://github.com/prplecake/go-thumbnail/actions/workflows/go.yml)
 
 # Thumbnail Generation Package for Go
 
