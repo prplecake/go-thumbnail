@@ -80,7 +80,7 @@ func TestThumbTests(t *testing.T) {
 }
 
 func TestNewImageFromByteArray(t *testing.T) {
-	testImageURL := "https://minio.jrgnsn.net/jrgnsn-pleroma/a48a6c8e0ee3b77284d4b3c6bb3a099a45b2af3bb2375422624f687c172bd6c1.jpg"
+	testImageURL := "https://s3-us-west-2.amazonaws.com/freeradical-system/media_attachments/files/107/742/646/709/715/386/original/8d771cb38a5984ab.jpg"
 	if testImageURL == "" {
 		t.Fatal("No test image URL.")
 	}
