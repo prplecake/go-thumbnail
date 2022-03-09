@@ -204,7 +204,7 @@ func Example() {
 	}
 }
 
-func ExampleNewImageFromByteArray() {
+func (*Generator) ExampleNewImageFromByteArray() {
 	testImageURL := "https://example.com/image.jpg"
 	if testImageURL == "" {
 		panic("No test image URL.")
