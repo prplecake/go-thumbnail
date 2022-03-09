@@ -1,5 +1,6 @@
 [![godocs.io](http://godocs.io/github.com/prplecake/go-thumbnail?status.svg)](http://godocs.io/github.com/prplecake/go-thumbnail)
 [![Go](https://github.com/prplecake/go-thumbnail/actions/workflows/go.yml/badge.svg)](https://github.com/prplecake/go-thumbnail/actions/workflows/go.yml)
+[![codecov](https://codecov.io/gh/prplecake/go-thumbnail/branch/master/graph/badge.svg?token=YLERGYR7LC)](https://codecov.io/gh/prplecake/go-thumbnail)
 
 # Thumbnail Generation Package for Go
 
