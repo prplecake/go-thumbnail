@@ -158,7 +158,6 @@ func checkFileExists(t *testing.T, path string) {
 		return
 	}
 	t.Log("File exists.")
-	return
 }
 
 func checkImageDimensions(t *testing.T, path string) (int, int, error) {
