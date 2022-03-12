@@ -165,9 +165,13 @@ func (gen *Generator) createRect(i *Image) (*image.RGBA, error) {
 		return nil, err
 	}
 	var (
-		x = gen.Width
-		y = gen.Height
+		width  = img.Bounds().Max.X
+		height = img.Bounds().Max.Y
+		x      = gen.Width * width / height
+		y      = gen.Height
 	)
+	gen.Width = x
+	gen.Height = y
 	rect := image.Rect(0, 0, x, y)
 	dst := image.NewRGBA(rect)
 	var scaler draw.Interpolator
