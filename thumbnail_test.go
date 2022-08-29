@@ -81,7 +81,7 @@ func TestThumbTests(t *testing.T) {
 }
 
 func TestNewImageFromByteArray(t *testing.T) {
-	testImageURL := "https://s3-us-west-2.amazonaws.com/freeradical-system/media_attachments/files/107/742/646/709/715/386/original/8d771cb38a5984ab.jpg"
+	testImageURL := "https://s3-eu-central-1.amazonaws.com/files.compostintraining.club/media_attachments/files/108/867/955/566/871/361/original/08ec8b2277a3f373.jpeg"
 	resp, err := http.Get(testImageURL)
 	if err != nil {
 		t.Error(err)
