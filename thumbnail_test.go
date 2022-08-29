@@ -65,7 +65,7 @@ func TestThumbTests(t *testing.T) {
 				wantWidth  = gen.Width
 				wantHeight = gen.Height
 			)
-			gotWidth, gotHeight, err := checkImageDimensions(t, dest)
+			gotWidth, gotHeight, err := checkImageDimensions(dest)
 			if err != nil {
 				t.Error(err)
 			}
@@ -124,7 +124,7 @@ func TestNewImageFromByteArray(t *testing.T) {
 		wantWidth  = gen.Width
 		wantHeight = gen.Height
 	)
-	gotWidth, gotHeight, err := checkImageDimensions(t, dest)
+	gotWidth, gotHeight, err := checkImageDimensions(dest)
 	if err != nil {
 		t.Error(err)
 	}
@@ -160,7 +160,7 @@ func checkFileExists(t *testing.T, path string) {
 	t.Log("File exists.")
 }
 
-func checkImageDimensions(t *testing.T, path string) (int, int, error) {
+func checkImageDimensions(path string) (int, int, error) {
 	imageBytes, err := ioutil.ReadFile(path)
 	if err != nil {
 		return 0, 0, err

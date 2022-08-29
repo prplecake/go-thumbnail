@@ -51,7 +51,7 @@ func TestScalers(t *testing.T) {
 				wantWidth  = gen.Width
 				wantHeight = gen.Height
 			)
-			gotWidth, gotHeight, err := checkImageDimensions(t, dest)
+			gotWidth, gotHeight, err := checkImageDimensions(dest)
 			if err != nil {
 				t.Error(err)
 			}
