@@ -3,6 +3,7 @@ package thumbnail
 import (
 	"bytes"
 	"image"
+	"io"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -88,7 +89,9 @@ func TestNewImageFromByteArray(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	defer resp.Body.Close()
+	defer func(Body io.ReadCloser) {
+		_ = Body.Close()
+	}(resp.Body)
 	data, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		t.Error(err)
@@ -212,7 +215,9 @@ func (*Generator) ExampleNewImageFromByteArray() {
 	if err != nil {
 		panic(err)
 	}
-	defer resp.Body.Close()
+	defer func(Body io.ReadCloser) {
+		_ = Body.Close()
+	}(resp.Body)
 	data, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		panic(err)
