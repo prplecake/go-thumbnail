@@ -82,9 +82,6 @@ func TestThumbTests(t *testing.T) {
 
 func TestNewImageFromByteArray(t *testing.T) {
 	testImageURL := "https://s3-us-west-2.amazonaws.com/freeradical-system/media_attachments/files/107/742/646/709/715/386/original/8d771cb38a5984ab.jpg"
-	if testImageURL == "" {
-		t.Fatal("No test image URL.")
-	}
 	resp, err := http.Get(testImageURL)
 	if err != nil {
 		t.Error(err)
@@ -208,9 +205,6 @@ func Example() {
 
 func (*Generator) ExampleNewImageFromByteArray() {
 	testImageURL := "https://example.com/image.jpg"
-	if testImageURL == "" {
-		panic("No test image URL.")
-	}
 	resp, err := http.Get(testImageURL)
 	if err != nil {
 		panic(err)
