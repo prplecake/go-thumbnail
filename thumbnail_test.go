@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"image"
 	"io"
-	"io/ioutil"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -56,7 +55,7 @@ func TestThumbTests(t *testing.T) {
 				t.Error(err)
 			}
 
-			err = ioutil.WriteFile(dest, thumbBytes, 0644)
+			err = os.WriteFile(dest, thumbBytes, 0644)
 			if err != nil {
 				t.Error(err)
 			}
@@ -89,7 +88,7 @@ func TestNewImageFromByteArray(t *testing.T) {
 	defer func(Body io.ReadCloser) {
 		_ = Body.Close()
 	}(resp.Body)
-	data, err := ioutil.ReadAll(resp.Body)
+	data, err := io.ReadAll(resp.Body)
 	if err != nil {
 		t.Error(err)
 	}
@@ -114,7 +113,7 @@ func TestNewImageFromByteArray(t *testing.T) {
 		t.Error(err)
 	}
 
-	err = ioutil.WriteFile(dest, thumbBytes, 0644)
+	err = os.WriteFile(dest, thumbBytes, 0644)
 	if err != nil {
 		t.Error(err)
 	}
@@ -161,7 +160,7 @@ func checkFileExists(t *testing.T, path string) {
 }
 
 func checkImageDimensions(path string) (int, int, error) {
-	imageBytes, err := ioutil.ReadFile(path)
+	imageBytes, err := os.ReadFile(path)
 	if err != nil {
 		return 0, 0, err
 	}
@@ -197,7 +196,7 @@ func Example() {
 		panic(err)
 	}
 
-	err = ioutil.WriteFile(dest, thumbBytes, 0644)
+	err = os.WriteFile(dest, thumbBytes, 0644)
 	if err != nil {
 		panic(err)
 	}
@@ -212,7 +211,7 @@ func (*Generator) ExampleNewImageFromByteArray() {
 	defer func(Body io.ReadCloser) {
 		_ = Body.Close()
 	}(resp.Body)
-	data, err := ioutil.ReadAll(resp.Body)
+	data, err := io.ReadAll(resp.Body)
 	if err != nil {
 		panic(err)
 	}
@@ -235,7 +234,7 @@ func (*Generator) ExampleNewImageFromByteArray() {
 		panic(err)
 	}
 
-	err = ioutil.WriteFile(dest, thumbBytes, 0644)
+	err = os.WriteFile(dest, thumbBytes, 0644)
 	if err != nil {
 		panic(err)
 	}
