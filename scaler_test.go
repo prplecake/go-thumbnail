@@ -1,7 +1,7 @@
 package thumbnail
 
 import (
-	"io/ioutil"
+	"os"
 	"path/filepath"
 	"testing"
 )
@@ -41,7 +41,7 @@ func TestScalers(t *testing.T) {
 				t.Error(err)
 			}
 
-			err = ioutil.WriteFile(dest, thumbBytes, 0644)
+			err = os.WriteFile(dest, thumbBytes, 0644)
 			if err != nil {
 				t.Error(err)
 			}
