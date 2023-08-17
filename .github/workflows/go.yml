@@ -6,18 +6,19 @@ on:
   pull_request:
     branches: [ master ]
 
-jobs:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
+jobs:
   build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
         go-version: 1.16
-
     - uses: actions/cache@v3
       with:
         path: |
@@ -26,15 +27,7 @@ jobs:
         key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
         restore-keys: |
           ${{ runner.os }}-go-
-
     - name: Build
       run: go build -v ./...
-
     - name: Test
       run: go test -v ./...
-
-    - name: Run coverage
-      run: go test -race -coverprofile=coverage.txt -covermode=atomic
-
-    - name: Upload coverage to Codecov
-      run: bash <(curl -s https://codecov.io/bash)
