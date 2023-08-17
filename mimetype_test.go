@@ -1,6 +1,7 @@
 package thumbnail
 
 import (
+	"errors"
 	"testing"
 )
 
@@ -29,7 +30,7 @@ func TestMimeType(t *testing.T) {
 			errWant := ErrInvalidMimeType
 			_, err := gen.CreateThumbnail(image)
 			if err != nil {
-				if err != errWant {
+				if !errors.Is(err, errWant) {
 					t.Errorf("Got unexpected error. Expected %s, got %s", errWant, err)
 				}
 			}
