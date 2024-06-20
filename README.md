@@ -19,6 +19,20 @@ go get github.com/prplecake/go-thumbnail
 
 See `thumbnail_test.go` for an example implementation at this time.
 
+## Developing
+
+Build:
+
+```shell
+go build ./...
+```
+
+Run tests:
+
+```
+go test -v ./...
+```
+
 ## Resources
 
 GoDocs can be found at [godocs.io][godocs].
