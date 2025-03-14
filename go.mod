@@ -1,5 +1,7 @@
 module github.com/prplecake/go-thumbnail
 
-go 1.22
+go 1.23.0
 
-require golang.org/x/image v0.24.0
+toolchain go1.23.7
+
+require golang.org/x/image v0.25.0
