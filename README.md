@@ -1,9 +1,6 @@
-[![godocs.io](http://godocs.io/git.sr.ht/~prplecake/go-thumbnail?status.svg)](http://godocs.io/git.sr.ht/~prplecake/go-thumbnail)
-[![Go](https://git.sr.ht/~prplecake/go-thumbnail/actions/workflows/go.yml/badge.svg)](https://git.sr.ht/~prplecake/go-thumbnail/actions/workflows/go.yml)
-[![codecov](https://codecov.io/gh/prplecake/go-thumbnail/branch/master/graph/badge.svg?token=YLERGYR7LC)](https://codecov.io/gh/prplecake/go-thumbnail)
-[![CodeFactor](https://www.codefactor.io/repository/github/prplecake/go-thumbnail/badge)](https://www.codefactor.io/repository/github/prplecake/go-thumbnail)
-
 # Thumbnail Generation Package for Go
+
+[Tracker](https://todo.sr.ht/~prplecake/go-thumbnail)
 
 This package provides method to create thumbnails from provided images.
 
