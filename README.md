@@ -1,5 +1,5 @@
-[![godocs.io](http://godocs.io/github.com/prplecake/go-thumbnail?status.svg)](http://godocs.io/github.com/prplecake/go-thumbnail)
-[![Go](https://github.com/prplecake/go-thumbnail/actions/workflows/go.yml/badge.svg)](https://github.com/prplecake/go-thumbnail/actions/workflows/go.yml)
+[![godocs.io](http://godocs.io/git.sr.ht/~prplecake/go-thumbnail?status.svg)](http://godocs.io/git.sr.ht/~prplecake/go-thumbnail)
+[![Go](https://git.sr.ht/~prplecake/go-thumbnail/actions/workflows/go.yml/badge.svg)](https://git.sr.ht/~prplecake/go-thumbnail/actions/workflows/go.yml)
 [![codecov](https://codecov.io/gh/prplecake/go-thumbnail/branch/master/graph/badge.svg?token=YLERGYR7LC)](https://codecov.io/gh/prplecake/go-thumbnail)
 [![CodeFactor](https://www.codefactor.io/repository/github/prplecake/go-thumbnail/badge)](https://www.codefactor.io/repository/github/prplecake/go-thumbnail)
 
@@ -12,7 +12,7 @@ This package provides method to create thumbnails from provided images.
 Use to `go` command:
 
 ```shell
-go get github.com/prplecake/go-thumbnail
+go get git.sr.ht/~prplecake/go-thumbnail
 ```
 
 ## Example
@@ -37,4 +37,4 @@ go test -v ./...
 
 GoDocs can be found at [godocs.io][godocs].
 
-[godocs]:https://godocs.io/github.com/prplecake/go-thumbnail
+[godocs]:https://godocs.io/git.sr.ht/~prplecake/go-thumbnail
