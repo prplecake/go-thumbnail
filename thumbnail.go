@@ -343,14 +343,6 @@ func flipVertical(img image.Image) image.Image {
 	return flipped
 }
 
-// min returns the minimum of two integers
-func min(a, b int) int {
-	if a < b {
-		return a
-	}
-	return b
-}
-
 // detectContentType from
 // https://golangcode.com/get-the-content-type-of-file/
 func detectContentType(fb []byte) string {
