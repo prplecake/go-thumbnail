@@ -231,6 +231,7 @@ func getImageOrientation(data []byte) int {
 
 // applyOrientation applies the EXIF orientation transformation to an image.
 // The orientation parameter should be the EXIF orientation tag value (1-8).
+// Reference: http://jpegclub.org/exif_orientation.html
 func applyOrientation(img image.Image, orientation int) image.Image {
 	switch orientation {
 	case 1:
@@ -246,16 +247,18 @@ func applyOrientation(img image.Image, orientation int) image.Image {
 		// Flipped vertically
 		return flipVertical(img)
 	case 5:
-		// Flipped horizontally and rotated 90 degrees CCW
+		// Transposed (flipped over top-left to bottom-right axis)
+		// = Flipped horizontally then rotated 90° CCW
 		return rotate90(flipHorizontal(img))
 	case 6:
-		// Rotated 90 degrees CW
+		// Rotated 90° CW (or 270° CCW)
 		return rotate270(img)
 	case 7:
-		// Flipped horizontally and rotated 90 degrees CW
+		// Transverse (flipped over top-right to bottom-left axis)
+		// = Flipped horizontally then rotated 90° CW
 		return rotate270(flipHorizontal(img))
 	case 8:
-		// Rotated 90 degrees CCW
+		// Rotated 90° CCW (or 270° CW)
 		return rotate90(img)
 	default:
 		// Unknown orientation, return original

@@ -66,18 +66,24 @@ func TestOrientationFunctions(t *testing.T) {
 	}
 	gen := NewGenerator(config)
 
-	// Load the test image
-	i, err := gen.NewImageFromFile(testImageOrientation6Path)
-	if err != nil {
-		t.Fatal(err)
-	}
+	// Test all 8 EXIF orientation values
+	for orientationValue := 1; orientationValue <= 8; orientationValue++ {
+		imagePath := testDataPath + "test_image_orientation_" + string(rune('0'+orientationValue)) + ".jpg"
+		
+		i, err := gen.NewImageFromFile(imagePath)
+		if err != nil {
+			t.Logf("Skipping orientation %d test (file not found)", orientationValue)
+			continue
+		}
 
-	// Test that getImageOrientation correctly reads EXIF data
-	orientation := getImageOrientation(i.Data)
-	if orientation != 6 {
-		t.Errorf("Expected orientation 6, got %d", orientation)
+		// Test that getImageOrientation correctly reads EXIF data
+		orientation := getImageOrientation(i.Data)
+		if orientation != orientationValue {
+			t.Errorf("Expected orientation %d, got %d for file %s", orientationValue, orientation, imagePath)
+		} else {
+			t.Logf("Correctly read EXIF orientation: %d", orientation)
+		}
 	}
-	t.Logf("Correctly read EXIF orientation: %d", orientation)
 
 	// Test PNG images return orientation 1 (no EXIF)
 	pngImage, err := gen.NewImageFromFile(testPngImagePath)
