@@ -3,6 +3,7 @@ package thumbnail
 import (
 	"os"
 	"path/filepath"
+	"strconv"
 	"testing"
 )
 
@@ -68,7 +69,7 @@ func TestOrientationFunctions(t *testing.T) {
 
 	// Test all 8 EXIF orientation values
 	for orientationValue := 1; orientationValue <= 8; orientationValue++ {
-		imagePath := testDataPath + "test_image_orientation_" + string(rune('0'+orientationValue)) + ".jpg"
+		imagePath := testDataPath + "test_image_orientation_" + strconv.Itoa(orientationValue) + ".jpg"
 		
 		i, err := gen.NewImageFromFile(imagePath)
 		if err != nil {

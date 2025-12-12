@@ -251,14 +251,16 @@ func applyOrientation(img image.Image, orientation int) image.Image {
 		// = Flipped horizontally then rotated 90° CCW
 		return rotate90(flipHorizontal(img))
 	case 6:
-		// Rotated 90° CW (or 270° CCW)
+		// Rotated 90° CW
+		// Note: rotate270 performs 270° CCW rotation, which equals 90° CW
 		return rotate270(img)
 	case 7:
 		// Transverse (flipped over top-right to bottom-left axis)
 		// = Flipped horizontally then rotated 90° CW
 		return rotate270(flipHorizontal(img))
 	case 8:
-		// Rotated 90° CCW (or 270° CW)
+		// Rotated 90° CCW
+		// Note: rotate90 performs 90° CCW rotation
 		return rotate90(img)
 	default:
 		// Unknown orientation, return original
