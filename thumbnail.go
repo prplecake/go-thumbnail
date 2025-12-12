@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/rwcarlsen/goexif/exif"
 	"golang.org/x/image/draw"
 )
 
@@ -164,6 +165,11 @@ func (gen *Generator) createRect(i *Image) (*image.RGBA, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	// Apply EXIF orientation transformation
+	orientation := getImageOrientation(i.Data)
+	img = applyOrientation(img, orientation)
+
 	var (
 		width  = img.Bounds().Max.X
 		height = img.Bounds().Max.Y
@@ -191,6 +197,150 @@ func (gen *Generator) createRect(i *Image) (*image.RGBA, error) {
 	scaler.Scale(dst, rect, img, img.Bounds(), draw.Over, nil)
 	return dst, nil
 
+}
+
+// getImageOrientation extracts the EXIF orientation tag from an image.
+// Returns 1 (normal orientation) if no orientation tag is found or if there's an error.
+func getImageOrientation(data []byte) int {
+	// Only attempt to read EXIF data for JPEG images
+	contentType := http.DetectContentType(data[:min(512, len(data))])
+	if contentType != "image/jpeg" {
+		return 1
+	}
+
+	reader := bytes.NewReader(data)
+	x, err := exif.Decode(reader)
+	if err != nil {
+		// No EXIF data or unable to decode, return normal orientation
+		return 1
+	}
+
+	orientation, err := x.Get(exif.Orientation)
+	if err != nil {
+		// No orientation tag, return normal orientation
+		return 1
+	}
+
+	orientationVal, err := orientation.Int(0)
+	if err != nil {
+		return 1
+	}
+
+	return orientationVal
+}
+
+// applyOrientation applies the EXIF orientation transformation to an image.
+// The orientation parameter should be the EXIF orientation tag value (1-8).
+// Reference: http://jpegclub.org/exif_orientation.html
+func applyOrientation(img image.Image, orientation int) image.Image {
+	switch orientation {
+	case 1:
+		// Normal orientation, no transformation needed
+		return img
+	case 2:
+		// Flipped horizontally
+		return flipHorizontal(img)
+	case 3:
+		// Rotated 180 degrees
+		return rotate180(img)
+	case 4:
+		// Flipped vertically
+		return flipVertical(img)
+	case 5:
+		// Transposed (flipped over top-left to bottom-right axis)
+		// = Flipped horizontally then rotated 90° CCW
+		return rotate90(flipHorizontal(img))
+	case 6:
+		// Rotated 90° CW
+		// Note: rotate270 performs 270° CCW rotation, which equals 90° CW
+		return rotate270(img)
+	case 7:
+		// Transverse (flipped over top-right to bottom-left axis)
+		// = Flipped horizontally then rotated 90° CW
+		return rotate270(flipHorizontal(img))
+	case 8:
+		// Rotated 90° CCW
+		// Note: rotate90 performs 90° CCW rotation
+		return rotate90(img)
+	default:
+		// Unknown orientation, return original
+		return img
+	}
+}
+
+// rotate90 rotates an image 90 degrees counter-clockwise
+func rotate90(img image.Image) image.Image {
+	bounds := img.Bounds()
+	width := bounds.Dx()
+	height := bounds.Dy()
+	rotated := image.NewRGBA(image.Rect(0, 0, height, width))
+	
+	for y := bounds.Min.Y; y < bounds.Max.Y; y++ {
+		for x := bounds.Min.X; x < bounds.Max.X; x++ {
+			rotated.Set(y-bounds.Min.Y, width-(x-bounds.Min.X)-1, img.At(x, y))
+		}
+	}
+	return rotated
+}
+
+// rotate180 rotates an image 180 degrees
+func rotate180(img image.Image) image.Image {
+	bounds := img.Bounds()
+	width := bounds.Dx()
+	height := bounds.Dy()
+	rotated := image.NewRGBA(image.Rect(0, 0, width, height))
+	
+	for y := bounds.Min.Y; y < bounds.Max.Y; y++ {
+		for x := bounds.Min.X; x < bounds.Max.X; x++ {
+			rotated.Set(width-(x-bounds.Min.X)-1, height-(y-bounds.Min.Y)-1, img.At(x, y))
+		}
+	}
+	return rotated
+}
+
+// rotate270 rotates an image 270 degrees counter-clockwise (or 90 degrees clockwise)
+func rotate270(img image.Image) image.Image {
+	bounds := img.Bounds()
+	width := bounds.Dx()
+	height := bounds.Dy()
+	rotated := image.NewRGBA(image.Rect(0, 0, height, width))
+	
+	for y := bounds.Min.Y; y < bounds.Max.Y; y++ {
+		for x := bounds.Min.X; x < bounds.Max.X; x++ {
+			rotated.Set(height-(y-bounds.Min.Y)-1, x-bounds.Min.X, img.At(x, y))
+		}
+	}
+	return rotated
+}
+
+// flipHorizontal flips an image horizontally
+func flipHorizontal(img image.Image) image.Image {
+	bounds := img.Bounds()
+	width := bounds.Dx()
+	height := bounds.Dy()
+	flipped := image.NewRGBA(image.Rect(0, 0, width, height))
+	
+	for y := bounds.Min.Y; y < bounds.Max.Y; y++ {
+		for x := bounds.Min.X; x < bounds.Max.X; x++ {
+			flipped.Set(width-(x-bounds.Min.X)-1, y-bounds.Min.Y, img.At(x, y))
+		}
+	}
+	return flipped
+}
+
+// flipVertical flips an image vertically
+func flipVertical(img image.Image) image.Image {
+	bounds := img.Bounds()
+	width := bounds.Dx()
+	height := bounds.Dy()
+	flipped := image.NewRGBA(image.Rect(0, 0, width, height))
+	
+	for y := bounds.Min.Y; y < bounds.Max.Y; y++ {
+		for x := bounds.Min.X; x < bounds.Max.X; x++ {
+			flipped.Set(x-bounds.Min.X, height-(y-bounds.Min.Y)-1, img.At(x, y))
+		}
+	}
+	return flipped
 }
 
 // detectContentType from
