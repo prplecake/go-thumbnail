@@ -1,4 +1,4 @@
-module git.fminus.co/prplecake/go-thumbnail
+module git.sr.ht/~prplecake/go-thumbnail
 
 go 1.24.0
 

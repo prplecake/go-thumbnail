@@ -1,5 +1,7 @@
 # Thumbnail Generation Package for Go
 
+[Tracker](https://todo.sr.ht/~prplecake/go-thumbnail)
+
 This package provides method to create thumbnails from provided images.
 
 ## Installation
@@ -7,7 +9,7 @@ This package provides method to create thumbnails from provided images.
 Use to `go` command:
 
 ```shell
-go get git.fminus.co/prplecake/go-thumbnail
+go get git.sr.ht/~prplecake/go-thumbnail
 ```
 
 ## Example
@@ -32,4 +34,4 @@ go test -v ./...
 
 GoDocs can be found at [godocs.io][godocs].
 
-[godocs]:https://godocs.io/git.fminus.co/prplecake/go-thumbnail
+[godocs]:https://godocs.io/git.sr.ht/~prplecake/go-thumbnail
